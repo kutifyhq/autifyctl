@@ -1,0 +1,3 @@
+FROM scratch
+COPY autifyctl /
+ENTRYPOINT ["/autifyctl"]

@@ -1,0 +1,41 @@
+builds:
+- main: .
+  ldflags: 
+    - -s 
+    - -w 
+    - -X github.com/kutifyhq/autifyctl/pkg/version.Version={{.Tag}} 
+    - -X github.com/kutifyhq/autifyctl/pkg/version.Revision={{.ShortCommit}} 
+    - -X github.com/kutifyhq/autifyctl/pkg/version.BuildDate={{.Date}}
+  goos:
+  - linux
+  - darwin
+  - windows
+brews:
+  - tap:
+      owner: kutifyhq
+      name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    url_template: "https://github.com/kutifyhq/autifyctl/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
+    commit_author:
+      name: goreleaserbot
+      email: goreleaser@carlosbecker.com
+    folder: Formula
+    description: "CLI tool for Autify API"
+    homepage: "https://github.com/kutifyhq/autifyctl"
+    test: |
+      system "#{bin}/autifyctl --version"
+dockers:
+  - image_templates:
+      - "ghcr.io/kutifyhq/autifyctl:{{ .Tag }}"
+      - "ghcr.io/kutifyhq/autifyctl:v{{ .Major }}"
+      - "ghcr.io/kutifyhq/autifyctl:v{{ .Major }}.{{ .Minor }}"
+      - "ghcr.io/kutifyhq/autifyctl:latest"
+    build_flag_templates:
+      - "--pull"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+    dockerfile: Dockerfile.compile
+    binaries:
+      - autifyctl
