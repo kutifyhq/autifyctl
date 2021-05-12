@@ -4,6 +4,18 @@
 
 # Autifyctl
 
+## Usage
+
+```console
+$ autifyctl schedule run 1234 --access-token $ACCESS_TOKEN
+```
+
+## Docker Image
+
+```console
+$ docker run ghcr.io/kutifyhq/autifyctl:latest schedule run 1234 --access-token $ACCESS_TOKEN
+```
+
 ## Environment variables
 
 Access token can be configure either by `--access-token` flag (`-t` for short) or `AUTIFYCTL_ACCESS_TOKEN` enivornment variable.
