@@ -18,11 +18,11 @@ jobs:
       - name: Docker Login
         run: echo "$GITHUB_TOKEN" | docker login ghcr.io -u USERNAME --password-stdin
         env:
-          GITHUB_TOKEN: ${{ secrets.KEKENIKER_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.KUTIFY_GITHUB_TOKEN }}
       - uses: goreleaser/goreleaser-action@v2
         with:
           version: latest
           args: release --rm-dist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          HOMEBREW_TAP_GITHUB_TOKEN: ${{ secrets.KEKENIKER_GITHUB_TOKEN }}
+          HOMEBREW_TAP_GITHUB_TOKEN: ${{ secrets.KUTIFY_GITHUB_TOKEN }}
