@@ -1,5 +1,7 @@
 builds:
 - main: .
+  env:
+   - CGO_ENABLED=0
   ldflags: 
     - -s 
     - -w 
@@ -37,5 +39,7 @@ dockers:
       - "--label=org.opencontainers.image.revision={{.FullCommit}}"
       - "--label=org.opencontainers.image.version={{.Version}}"
     dockerfile: Dockerfile.compile
+    goos: linux
+    goarch: amd64
     ids:
       - autifyctl
